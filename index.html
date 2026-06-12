@@ -1,0 +1,4454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hans Stewart · Agentic AI Marketing Lead · AVIAN</title>
+
+  <!-- Fonts: matching AVIAN's clean industrial sans-serif precision -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      /* ── AVIAN BRAND COLORS ─────────────────────────────── */
+      --black:         #0a0a0b;
+      --near-black:    #0f0f10;
+      --surface-1:     #141416;
+      --surface-2:     #1a1a1c;
+      --surface-3:     #202023;
+      --surface-hover: #252528;
+
+      --border:        rgba(255,255,255,0.07);
+      --border-mid:    rgba(255,255,255,0.11);
+      --border-bright: rgba(255,255,255,0.18);
+
+      --text:           #f2f2f0;
+      --text-secondary: #999998;
+      --text-muted:     #5e5e5c;
+      --text-faint:     #2a2a28;
+
+      /* AVIAN amber/orange — primary brand accent */
+      --amber:         #e8621a;
+      --amber-light:   #f07840;
+      --amber-dim:     rgba(232,98,26,0.09);
+      --amber-border:  rgba(232,98,26,0.22);
+      --amber-glow:    rgba(232,98,26,0.15);
+
+      /* Supporting palette */
+      --green:         #4ade80;
+      --green-dim:     rgba(74,222,128,0.08);
+      --green-border:  rgba(74,222,128,0.18);
+      --blue:          #60a5fa;
+      --blue-dim:      rgba(96,165,250,0.08);
+      --red:           #f87171;
+      --white:         #ffffff;
+
+      /* ── LAYOUT ────────────────────────────────────────── */
+      --max-w:         1200px;
+      --gutter:        clamp(20px, 4vw, 60px);
+
+      /* ── TYPE ──────────────────────────────────────────── */
+      --font:      'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* ── RADIUS ────────────────────────────────────────── */
+      --r-xs: 3px;
+      --r-sm: 5px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-xl: 18px;
+
+      /* ── MOTION ────────────────────────────────────────── */
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --t:    200ms;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--black);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.022;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── AMBIENT GLOW ──────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -300px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,98,26,0.055) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT BASE ───────────────────────────────────────── */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    section { position: relative; z-index: 1; }
+
+    /* ── TYPOGRAPHY ────────────────────────────────────────── */
+    .eyebrow {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 60ch;
+      line-height: 1.7;
+    }
+
+    /* ── CARDS / PANELS ────────────────────────────────────── */
+    .card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.03) inset,
+        0 12px 40px rgba(0,0,0,0.24);
+    }
+
+    /* ── DIVIDERS ──────────────────────────────────────────── */
+    .rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      border: none;
+      margin: 0;
+    }
+
+    /* ── BUTTONS ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--r-sm);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--font);
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all var(--t) var(--ease);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: #fff;
+      border-color: var(--amber);
+      box-shadow: 0 4px 20px rgba(232,98,26,0.28);
+    }
+
+    .btn-primary:hover {
+      background: var(--amber-light);
+      border-color: var(--amber-light);
+      box-shadow: 0 6px 28px rgba(232,98,26,0.38);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border-mid);
+    }
+
+    .btn-ghost:hover {
+      color: var(--white);
+      border-color: var(--border-bright);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ── BADGE ─────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: var(--r-xs);
+      font-size: 10px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: 1px solid;
+    }
+
+    .badge-amber {
+      color: var(--amber-light);
+      background: var(--amber-dim);
+      border-color: var(--amber-border);
+    }
+
+    .badge-green {
+      color: var(--green);
+      background: var(--green-dim);
+      border-color: var(--green-border);
+    }
+
+    .badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── SCROLL REVEAL ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity 600ms var(--ease),
+        transform 600ms var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+    .reveal-delay-4 { transition-delay: 320ms; }
+
+    /* ── ACCENT LINE ───────────────────────────────────────── */
+    .accent-line {
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      background: var(--amber);
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    /* ── SECTION SPACING ───────────────────────────────────── */
+    .section-pad {
+      padding: clamp(64px, 8vw, 120px) 0;
+    }
+
+    /* ── SCROLLBAR ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+        /* ── HEADER ────────────────────────────────────────────── */
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,11,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      height: 64px;
+      gap: 32px;
+    }
+
+    .header-logo {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+        .logo-img {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      filter: invert(1) brightness(1.08);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: color var(--t) var(--ease);
+    }
+
+    .nav-link:hover { color: var(--white); }
+
+    .header-cta {
+      margin-left: 20px;
+      padding: 8px 18px;
+      font-size: 12.5px;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    #hero {
+      padding: clamp(80px, 10vw, 140px) 0 clamp(64px, 8vw, 100px);
+    }
+
+            .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+      align-items: start;
+      gap: 56px;
+    }
+
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .hero-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .hero-role {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 22px;
+    }
+
+    .hero-accent {
+      color: var(--amber);
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 54ch;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 44px;
+    }
+
+            .hero-stats {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      width: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+        .hero-stat {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 4px 12px;
+    }
+
+        .hero-stat-val {
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+
+        .hero-stat-label {
+      line-height: 1.4;
+      max-width: none;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+        .hero-stat-divider {
+      flex-shrink: 0;
+      width: 1px;
+      align-self: stretch;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ── HERO VISUAL CARD ──────────────────────────────────── */
+        .hero-visual {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)),
+        rgba(15,16,18,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 28px 90px rgba(0,0,0,0.32);
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .hero-visual-label {
+      padding: 16px 20px 0;
+    }
+
+    .hero-automation-stack {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-auto-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: var(--r-md);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      transition: background var(--t) var(--ease), border-color var(--t) var(--ease);
+    }
+
+    .hero-auto-item:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-mid);
+    }
+
+    .hero-auto-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-auto-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 1.8;
+    }
+
+    .hero-auto-icon.amber {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+    }
+
+    .hero-auto-icon.green {
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--green);
+    }
+
+    .hero-auto-icon.blue {
+      background: var(--blue-dim);
+      border: 1px solid rgba(96,165,250,0.2);
+      color: var(--blue);
+    }
+
+    .hero-auto-body { flex: 1; min-width: 0; }
+
+    .hero-auto-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .hero-auto-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .hero-auto-score {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--amber);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-visual-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-visual-ts,
+    .hero-visual-env {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-faint);
+    }
+
+    .hero-visual-env { color: var(--green); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────── */
+        @media (max-width: 980px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .hero-right {
+        width: 100%;
+      }
+    }
+
+      .header-nav { display: none; }
+
+        /* ── AUTOMATIONS INTRO ─────────────────────────────────── */
+    .section-header {
+      margin-bottom: 52px;
+      max-width: 64ch;
+    }
+
+    .auto-intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .auto-intro-card {
+      position: relative;
+      padding: 28px 26px 24px;
+      border-radius: var(--r-xl);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.92);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.035) inset,
+        0 16px 48px rgba(0,0,0,0.28);
+      transition:
+        border-color var(--t) var(--ease),
+        transform var(--t) var(--ease),
+        box-shadow var(--t) var(--ease);
+      overflow: hidden;
+    }
+
+    .auto-intro-card::before {
+      content: attr(data-num);
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      font-size: 80px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.022);
+      font-variant-numeric: tabular-nums;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .auto-intro-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-4px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 24px 60px rgba(0,0,0,0.36);
+    }
+
+    .aic-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .aic-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid;
+    }
+
+    .aic-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 1.8;
+    }
+
+    .aic-icon.amber {
+      background: var(--amber-dim);
+      border-color: var(--amber-border);
+      color: var(--amber);
+    }
+
+    .aic-icon.green {
+      background: var(--green-dim);
+      border-color: var(--green-border);
+      color: var(--green);
+    }
+
+    .aic-icon.blue {
+      background: var(--blue-dim);
+      border-color: rgba(96,165,250,0.22);
+      color: var(--blue);
+    }
+
+    .aic-num {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+    }
+
+    .aic-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+
+    .aic-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .aic-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .aic-tag {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xs);
+      padding: 3px 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .aic-stat-row {
+      display: flex;
+      gap: 0;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .aic-stat {
+      flex: 1;
+      text-align: center;
+    }
+
+    .aic-stat-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 3px;
+    }
+
+    .aic-stat-label {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .aic-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--amber);
+      text-decoration: none;
+      transition: gap var(--t) var(--ease), color var(--t) var(--ease);
+    }
+
+    .aic-link svg {
+      width: 13px;
+      height: 13px;
+      stroke-width: 2.2;
+      transition: transform var(--t) var(--ease);
+    }
+
+    .aic-link:hover { color: var(--amber-light); }
+    .aic-link:hover svg { transform: translateX(3px); }
+
+    .auto-tech-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .atb-label {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .atb-items {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .atb-item {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .atb-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--text-faint);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 900px) {
+      .auto-intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* ── AUTOMATION DETAIL SECTIONS ────────────────────────── */
+    .auto-detail-header {
+      margin-bottom: 48px;
+    }
+
+    .auto-detail-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .auto-detail-eyebrow .eyebrow {
+      margin-bottom: 0;
+    }
+
+    .auto-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px;
+      align-items: start;
+    }
+
+    /* ── PROCESS STEPS ─────────────────────────────────────── */
+    .process-label {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+    }
+
+    .ps-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2px;
+    }
+
+    .ps-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+      font-size: 10px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ps-line {
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+      margin: 6px 0;
+      min-height: 20px;
+    }
+
+    .process-step:last-child .ps-line {
+      display: none;
+    }
+
+    .ps-body {
+      padding-bottom: 28px;
+    }
+
+    .process-step:last-child .ps-body {
+      padding-bottom: 0;
+    }
+
+    .ps-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .ps-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .ps-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .ps-tool {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--amber);
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      border-radius: var(--r-xs);
+      padding: 2px 8px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── OUTPUT CARD ───────────────────────────────────────── */
+    .output-card {
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.95);
+      border: 1px solid var(--amber-border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 0 40px rgba(232,98,26,0.06);
+    }
+
+    .output-card-header {
+      padding: 14px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .output-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .output-card-meta {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .output-tabs {
+      display: flex;
+      gap: 2px;
+      padding: 10px 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .output-tab {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 5px 12px 8px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
+    }
+
+    .output-tab:hover { color: var(--text); }
+
+    .output-tab.active {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+
+    .output-body {
+      padding: 18px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      min-height: 160px;
+    }
+
+    /* ── MINI PIPELINE TABLE ───────────────────────────────── */
+    .pipeline-mini-table {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+
+    .pmt-header {
+      display: grid;
+      grid-template-columns: 1fr 60px 70px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pmt-header .pmt-col {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .pmt-row {
+      display: grid;
+      grid-template-columns: 1fr 60px 70px;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      transition: background var(--t) var(--ease);
+    }
+
+    .pmt-row:last-child { border-bottom: none; }
+    .pmt-row:hover { background: rgba(255,255,255,0.025); }
+
+    .pmt-row .pmt-col {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pmt-row .pmt-col:first-child {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .tier-pip {
+      font-size: 9px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 2px 6px;
+      border-radius: var(--r-xs);
+      border: 1px solid;
+    }
+
+    .tier-pip.hot {
+      color: var(--amber);
+      background: var(--amber-dim);
+      border-color: var(--amber-border);
+    }
+
+    .tier-pip.warm {
+      color: var(--blue);
+      background: var(--blue-dim);
+      border-color: rgba(96,165,250,0.22);
+    }
+
+    .tier-pip.cold {
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.03);
+      border-color: var(--border);
+    }
+
+    @media (max-width: 900px) {
+      .auto-detail-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+        /* ── CONTENT ENGINE SECTION ────────────────────────────── */
+    .auto-detail-layout.reverse {
+      direction: rtl;
+    }
+
+    .auto-detail-layout.reverse > * {
+      direction: ltr;
+    }
+
+    .content-quality-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cq-card {
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.94);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 18px 18px 16px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      transition: border-color var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .cq-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-2px);
+    }
+
+    .cq-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cq-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .cq-score {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cq-score span {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .cq-score.green { color: var(--green); }
+    .cq-score.amber { color: var(--amber); }
+
+    .cq-preview {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .cq-dimensions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .cq-dim {
+      display: grid;
+      grid-template-columns: 90px 1fr 24px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cq-dim-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cq-dim-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .cq-dim-fill {
+      height: 100%;
+      background: var(--amber);
+      border-radius: 2px;
+      transition: width 800ms var(--ease);
+    }
+
+    .cq-dim-val {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 900px) {
+      .auto-detail-layout.reverse {
+        direction: ltr;
+      }
+    }
+        /* ── RE-ENGAGEMENT SECTION ─────────────────────────────── */
+    .reengage-contact-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .rc-card {
+      border-radius: var(--r-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.94);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      transition: border-color var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .rc-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .rc-card.immediate {
+      border-color: var(--amber-border);
+      box-shadow: 0 0 32px rgba(232,98,26,0.07), 0 8px 28px rgba(0,0,0,0.2);
+    }
+
+    .rc-card.week {
+      border-color: rgba(96,165,250,0.18);
+    }
+
+    .rc-card.quarter {
+      border-color: var(--border);
+    }
+
+    .rc-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .rc-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .rc-company {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .rc-meta-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rc-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .rc-meta-label {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-faint);
+    }
+
+    .rc-meta-val {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rc-message {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-style: italic;
+    }
+        /* ── DASHBOARD SECTION ─────────────────────────────────── */
+    .dashboard-frame-wrap {
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      border: 1px solid var(--border-mid);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 32px 80px rgba(0,0,0,0.5);
+    }
+
+    .dashboard-frame-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dfh-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dfh-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dfh-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dfh-dot.red    { background: #ff5f57; }
+    .dfh-dot.yellow { background: #ffbd2e; }
+    .dfh-dot.green  { background: #28c840; }
+
+    .dfh-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .dfh-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dfh-env {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--green);
+    }
+
+    .dashboard-embed {
+      background: var(--surface-1);
+    }
+
+    .db-nav {
+      display: flex;
+      gap: 2px;
+      padding: 10px 16px 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .db-nav-item {
+      font-size: 11.5px;
+      font-family: var(--font-mono);
+      padding: 6px 14px 10px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .db-nav-item:hover { color: var(--text); }
+
+    .db-nav-item.active {
+      color: var(--amber);
+      border-bottom-color: var(--amber);
+    }
+
+    .db-views { padding: 24px 20px; }
+
+    .db-view { display: none; }
+    .db-view.active {
+      display: block;
+      animation: fadeUp 250ms var(--ease) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .db-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .db-kpi {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 12px 14px;
+      transition: border-color var(--t) var(--ease);
+    }
+
+    .db-kpi:hover { border-color: var(--border-mid); }
+
+    .db-kpi-label {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .db-kpi-val {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+    }
+
+    .db-kpi-val.amber { color: var(--amber); }
+    .db-kpi-val.green { color: var(--green); }
+
+    .db-kpi-sub {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .db-chart-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 14px;
+    }
+
+    .db-chart-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px;
+    }
+
+    .db-chart-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .db-chart-wrap {
+      height: 180px;
+      position: relative;
+    }
+
+    .db-chart-wrap.sm { height: 160px; }
+
+    /* ── DASHBOARD TABLES ──────────────────────────────────── */
+    .db-table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+
+    .db-table-header {
+      display: grid;
+      grid-template-columns: 1.2fr 1.6fr 0.8fr 0.8fr 0.8fr;
+      padding: 9px 16px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .db-table-header div {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .db-table-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1.6fr 0.8fr 0.8fr 0.8fr;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+      align-items: center;
+      transition: background var(--t) var(--ease);
+    }
+
+    .db-table-row:last-child { border-bottom: none; }
+    .db-table-row:hover { background: rgba(255,255,255,0.025); }
+
+    .db-cell-primary {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .db-cell {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .db-cell.mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .db-ready  { font-size: 11px; color: var(--green); font-family: var(--font-mono); }
+    .db-pending { font-size: 11px; color: var(--blue); font-family: var(--font-mono); }
+    .db-skip   { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+
+    /* ── DASHBOARD CONTENT VIEW ────────────────────────────── */
+    .db-content-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+
+    .db-content-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      transition: background var(--t) var(--ease);
+    }
+
+    .db-content-row:last-child { border-bottom: none; }
+    .db-content-row:hover { background: rgba(255,255,255,0.025); }
+
+    .db-content-type {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .db-content-preview {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      max-width: 60ch;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .db-content-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .db-content-score {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .db-content-score.green { color: var(--green); }
+    .db-content-score.amber { color: var(--amber); }
+
+    /* ── RE-ENGAGE TABLE (5 cols) ──────────────────────────── */
+    #db-reengage .db-table-header,
+    #db-reengage .db-table-row {
+      grid-template-columns: 1.2fr 1fr 0.7fr 0.7fr 1fr;
+    }
+
+    @media (max-width: 900px) {
+      .db-kpi-row { grid-template-columns: repeat(3, 1fr); }
+      .db-chart-row { grid-template-columns: 1fr; }
+      .db-table-header,
+      .db-table-row {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .db-table-header div:nth-child(n+4),
+      .db-table-row > *:nth-child(n+4) { display: none; }
+    }
+        /* ── RESULTS SECTION ───────────────────────────────────── */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .impact-num-card {
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px 22px 20px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      transition: border-color var(--t) var(--ease), transform var(--t) var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .impact-num-card::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber-border), transparent);
+    }
+
+    .impact-num-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-3px);
+    }
+
+    .inc-value {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--white);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 2px;
+    }
+
+    .inc-unit {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+
+    .inc-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .inc-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .results-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .rdg-card {
+      display: flex;
+      gap: 18px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.92);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 24px 22px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+      transition: border-color var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .rdg-card:hover {
+      border-color: var(--border-mid);
+      transform: translateY(-2px);
+    }
+
+    .rdg-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid;
+      margin-top: 2px;
+    }
+
+    .rdg-icon svg { width: 17px; height: 17px; stroke-width: 1.8; }
+
+    .rdg-icon.amber { background: var(--amber-dim); border-color: var(--amber-border); color: var(--amber); }
+    .rdg-icon.green { background: var(--green-dim); border-color: var(--green-border); color: var(--green); }
+    .rdg-icon.blue  { background: var(--blue-dim);  border-color: rgba(96,165,250,0.22); color: var(--blue); }
+
+    .rdg-body { flex: 1; min-width: 0; }
+
+    .rdg-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+
+    .rdg-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .rdg-metric {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+    }
+
+    .rdg-metric-label {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .rdg-metric-val {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rdg-metric-val.green { color: var(--green); }
+    .rdg-metric-val.amber { color: var(--amber); }
+    .rdg-metric-val.red   { color: var(--red); }
+
+    .rdg-metric-arrow { color: var(--text-faint); flex-shrink: 0; }
+    .rdg-metric-arrow svg { width: 14px; height: 14px; stroke-width: 2; }
+
+    @media (max-width: 900px) {
+      .impact-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+
+      .results-detail-grid { 
+        grid-template-columns: 1fr; 
+     }
+    }
+        /* ── AI AGENT ──────────────────────────────────────────── */
+    .agent-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .agent-chat-wrap {
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(20,20,22,0.95);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 24px 64px rgba(0,0,0,0.36);
+    }
+
+    .agent-chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .agent-chat-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .agent-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-md);
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .agent-avatar svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 1.8;
+    }
+
+    .agent-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .agent-status {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .agent-clear {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+    }
+
+    .agent-clear:hover {
+      color: var(--white);
+      background: rgba(255,255,255,0.06);
+      border-color: var(--border);
+    }
+
+    .agent-clear svg {
+      width: 14px;
+      height: 14px;
+      stroke-width: 2;
+    }
+
+    .agent-messages {
+      padding: 20px 18px;
+      min-height: 320px;
+      max-height: 420px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .agent-msg {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .agent-msg.user {
+      align-items: flex-end;
+    }
+
+    .agent-msg.agent {
+      align-items: flex-start;
+    }
+
+    .agent-msg-bubble {
+      max-width: 80%;
+      padding: 11px 15px;
+      border-radius: var(--r-lg);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .agent-msg.user .agent-msg-bubble {
+      background: var(--amber);
+      color: #fff;
+      border-bottom-right-radius: var(--r-xs);
+    }
+
+    .agent-msg.agent .agent-msg-bubble {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-bottom-left-radius: var(--r-xs);
+    }
+
+    .agent-typing .agent-msg-bubble {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 13px 16px;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: typingBounce 1.2s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .agent-input-row {
+      display: flex;
+      gap: 10px;
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .agent-input {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      font-size: 13.5px;
+      color: var(--white);
+      font-family: var(--font);
+      transition: border-color var(--t) var(--ease);
+      outline: none;
+    }
+
+    .agent-input::placeholder { color: var(--text-muted); }
+
+    .agent-input:focus {
+      border-color: var(--amber-border);
+      background: rgba(232,98,26,0.04);
+    }
+
+    .agent-send {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--r-md);
+      background: var(--amber);
+      border: none;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background var(--t) var(--ease), transform var(--t) var(--ease);
+    }
+
+    .agent-send:hover {
+      background: var(--amber-light);
+      transform: translateY(-1px);
+    }
+
+    .agent-send svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2;
+    }
+
+    .agent-suggestions {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 20px 18px;
+    }
+
+    .agent-suggestions-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .agent-suggestion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .agent-suggestion {
+      text-align: left;
+      padding: 10px 14px;
+      border-radius: var(--r-md);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: all var(--t) var(--ease);
+      line-height: 1.5;
+    }
+
+    .agent-suggestion:hover {
+      background: var(--amber-dim);
+      border-color: var(--amber-border);
+      color: var(--white);
+    }
+
+    @media (max-width: 900px) {
+      .agent-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+        /* ── FOOTER ───────────────────────────────────────────── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 26px 0 34px;
+      background: rgba(255,255,255,0.01);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .footer-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+        .footer-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      display: block;
+      filter: invert(1) brightness(1.08);
+    }
+
+    .footer-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .footer-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-link {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--t) var(--ease);
+    }
+
+    .footer-link:hover {
+      color: var(--amber);
+    }
+
+    @media (max-width: 700px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-right {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+    }
+
+    /* ── SELECTION ─────────────────────────────────────────── */
+    ::selection {
+      background: rgba(232,98,26,0.22);
+      color: var(--white);
+    }
+
+    /* ── FOCUS ─────────────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: var(--r-xs);
+    }
+
+        /* ── VISUAL UPGRADE PASS ─────────────────────────────── */
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(232,98,26,0.08), transparent 28%),
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,0.04), transparent 22%),
+        linear-gradient(180deg, #0a0a0b 0%, #0f1012 55%, #0b0c0e 100%);
+    }
+
+    #site-header {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(10,10,12,0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .hero-inner {
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero-title {
+      max-width: 10.5ch;
+      font-size: clamp(52px, 7.2vw, 96px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      font-weight: 700;
+    }
+
+    .hero-accent {
+      color: rgba(255,255,255,0.92);
+    }
+
+    .hero-desc {
+      max-width: 62ch;
+      font-size: 15px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .hero-stats {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hero-visual {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01)),
+        rgba(15,16,18,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 28px 90px rgba(0,0,0,0.32);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(232,98,26,0.07), transparent 30%),
+        linear-gradient(0deg, transparent, rgba(255,255,255,0.02));
+      pointer-events: none;
+    }
+
+    .hero-auto-item,
+    .auto-intro-card,
+    .output-card,
+    .cq-card,
+    .rc-card,
+    .db-chart-card,
+    .db-kpi,
+    .rdg-card,
+    .impact-num-card,
+    .agent-chat-wrap,
+    .agent-kb-card {
+      border-color: rgba(255,255,255,0.08) !important;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 16px 40px rgba(0,0,0,0.20);
+    }
+
+    .auto-intro-card,
+    .rdg-card,
+    .impact-num-card {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012)),
+        rgba(18,19,21,0.92) !important;
+      border-radius: 22px !important;
+    }
+
+    .auto-intro-card:hover,
+    .rdg-card:hover,
+    .impact-num-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232,98,26,0.22) !important;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 26px 60px rgba(0,0,0,0.28);
+    }
+
+    .section-title {
+      max-width: 14ch;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .section-desc {
+      max-width: 64ch;
+      color: rgba(255,255,255,0.66);
+      line-height: 1.8;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding-inline: 18px;
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #f07a2a 0%, #dc6215 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 10px 24px rgba(232,98,26,0.22),
+        0 1px 0 rgba(255,255,255,0.10) inset;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 16px 34px rgba(232,98,26,0.28),
+        0 1px 0 rgba(255,255,255,0.10) inset;
+    }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .accent-line {
+      width: 72px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(232,98,26,0.9), rgba(232,98,26,0.12));
+    }
+
+    .aic-link,
+    .footer-link,
+    .nav-link {
+      position: relative;
+    }
+
+    .aic-link::after,
+    .footer-link::after,
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: rgba(232,98,26,0.9);
+      transition: width 220ms ease;
+    }
+
+    .aic-link:hover::after,
+    .footer-link:hover::after,
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .dashboard-frame-wrap {
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 28px 90px rgba(0,0,0,0.30);
+    }
+
+    .dashboard-embed {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005)),
+        rgba(14,15,17,0.96);
+    }
+
+    @media (max-width: 900px) {
+      .hero-title {
+        max-width: none;
+        font-size: clamp(42px, 12vw, 64px);
+      }
+
+      .section-title {
+        max-width: none;
+      }
+    }
+
+        .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 10px;
+    }
+
+    .hero-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.96);
+      margin-bottom: 2px;
+    }
+
+    .hero-role {
+      color: rgba(255,255,255,0.6);
+    }
+
+        .hero-system-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-system-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 6px;
+    }
+
+    .hero-system-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: rgba(255,255,255,0.96);
+    }
+
+    .hero-system-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.72);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      white-space: nowrap;
+    }
+
+    .hero-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 0 6px rgba(74,222,128,0.10);
+      flex-shrink: 0;
+    }
+
+    .hero-system-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-system-panel {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012));
+      min-height: 128px;
+    }
+
+    .hero-system-panel-wide {
+      grid-column: span 2;
+    }
+
+    .hero-system-panel.muted {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+    }
+
+    .hero-panel-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 10px;
+    }
+
+    .hero-panel-metric {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      color: rgba(255,255,255,0.98);
+      margin-bottom: 10px;
+    }
+
+    .hero-panel-meta,
+    .hero-panel-note {
+      font-size: 12.5px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.62);
+      max-width: 34ch;
+    }
+
+    @media (max-width: 900px) {
+      .hero-system-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-system-panel-wide {
+        grid-column: span 1;
+      }
+
+      .hero-system-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+        .header-inner {
+      min-height: 74px;
+    }
+
+    .header-nav {
+      gap: 26px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .nav-link:hover {
+      color: rgba(255,255,255,0.96);
+    }
+
+    .header-cta {
+      min-height: 42px;
+      padding-inline: 16px;
+      font-size: 13px;
+    }
+
+        .db-kpi-row {
+      gap: 10px;
+    }
+
+    .db-kpi {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008)),
+        rgba(16,17,19,0.95);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 16px 16px 15px;
+    }
+
+    .db-kpi-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.42);
+      margin-bottom: 10px;
+    }
+
+    .db-kpi-val {
+      letter-spacing: -0.05em;
+    }
+
+    .db-kpi-sub {
+      color: rgba(255,255,255,0.56);
+      max-width: 18ch;
+      line-height: 1.5;
+    }
+
+        .output-card-title {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.54);
+    }
+
+    .output-card-meta {
+      color: rgba(255,255,255,0.72);
+      font-size: 12px;
+    }
+
+    .output-tab {
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .output-body {
+      color: rgba(255,255,255,0.78);
+      line-height: 1.8;
+    }
+
+    .pipeline-mini-table {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 16px;
+    }
+
+        .text-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.96);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .footer-logo-text {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      color: rgba(255,255,255,0.96);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .logo-img,
+    .footer-logo {
+      display: none !important;
+    }
+
+                .hero-right {
+      min-width: 0;
+      width: 100%;
+      align-self: start;
+    }
+
+    .hero-system-top,
+    .hero-system-grid,
+    .hero-visual-footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-visual-footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual-ts,
+    .hero-visual-env {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .hero-visual-env {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-system-panel {
+      min-width: 0;
+    }
+
+    .hero-panel-meta,
+    .hero-panel-note {
+      max-width: none;
+    }
+
+        .hero-stat {
+      padding: 4px 18px;
+      min-width: 0;
+    }
+
+    .hero-stat-val {
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+
+    .hero-stat-label {
+      line-height: 1.45;
+      max-width: 12ch;
+    }
+
+    .hero-stat-divider {
+      width: 1px;
+      height: auto;
+      align-self: stretch;
+      background: rgba(255,255,255,0.08);
+    }
+
+        @media (max-width: 700px) {
+      .hero-stats {
+        flex-wrap: wrap;
+        padding: 14px 8px;
+      }
+
+      .hero-stat {
+        flex: 0 0 calc(50% - 1px);
+        padding: 8px 12px;
+      }
+
+      .hero-stat-divider {
+        display: none;
+      }
+
+      .hero-stat-label {
+        white-space: normal;
+      }
+    }
+
+        .auto-intro-grid {
+      align-items: stretch;
+    }
+
+    .auto-intro-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 26px 24px 22px !important;
+    }
+
+    .aic-desc {
+      min-height: 110px;
+    }
+
+    .aic-stat-row {
+      margin-top: auto;
+      padding-top: 18px;
+    }
+
+    .aic-link {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+            .hero-left {
+      min-width: 0;
+    }
+
+    .hero-identity {
+      margin-bottom: 20px;
+    }
+
+    .video-section {
+  margin-top: 26px;
+  width: 100%;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  gap: 14px;
+}
+
+.video-kicker {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.48);
+}
+
+.video-heading {
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: rgba(255,255,255,0.96);
+}
+
+.video-copy {
+  max-width: 56ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.66);
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(10,11,14,0.9);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.28);
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  .video-section {
+    max-width: 100%;
+  }
+
+  .video-frame {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    margin-top: 22px;
+    gap: 12px;
+  }
+
+  .video-heading {
+  font-size: 16px;
+}
+
+  .video-copy {
+    font-size: 13px;
+  }
+
+  .video-frame {
+    border-radius: 16px;
+  }
+}
+
+.auto-video-block {
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 24px;
+}
+  </style>
+</head>
+<body>
+
+      <!-- ═══════════════════════════════════════════════════ -->
+    <!-- HEADER                                              -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <header id="site-header">
+      <div class="container header-inner">
+        <a href="#" class="header-logo text-logo">AVIAN</a>
+
+        <nav class="header-nav">
+          <a href="#automations" class="nav-link">Automations</a>
+          <a href="#dashboard" class="nav-link">Dashboard</a>
+          <a href="#results" class="nav-link">Results</a>
+          <a href="#agent" class="nav-link">AI Agent</a>
+        </nav>
+
+        <a href="#agent" class="btn btn-primary header-cta">
+          Talk to the Agent
+        </a>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- HERO                                                -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="hero">
+      <div class="container hero-inner">
+
+        <div class="hero-left">
+          <div class="hero-identity reveal">
+  <div class="hero-byline">
+    <div class="hero-kicker">AVIAN · Agentic Systems Portfolio</div>
+    <div class="hero-name">Hans Stewart</div>
+    <div class="hero-role">Agentic AI Marketing Lead</div>
+  </div>
+</div>
+
+          <h1 class="hero-title reveal reveal-delay-1">
+  Agentic GTM Systems<br />
+  <span class="hero-accent">for industrial revenue teams.</span>
+</h1>
+
+          <p class="hero-desc reveal reveal-delay-2">
+  A focused portfolio of three production-grade automation systems built for AVIAN — designed to score accounts, generate high-quality commercial content, and surface high-priority follow-up directly inside the CRM workflow.
+</p>
+
+          <div class="hero-actions reveal reveal-delay-3">
+            <a href="#automations" class="btn btn-primary">
+              <i data-lucide="zap"></i>
+              See the Automations
+            </a>
+            <a href="#dashboard" class="btn btn-ghost">
+              View Live Dashboard
+            </a>
+          </div>
+
+          <div class="hero-stats reveal reveal-delay-4">
+            <div class="hero-stat">
+              <div class="hero-stat-val">3</div>
+              <div class="hero-stat-label">Active Automations</div>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">15-20hrs</div>
+              <div class="hero-stat-label">Manual Work Automated Weekly</div>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">88</div>
+              <div class="hero-stat-label">Top ICP Score</div>
+            </div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">7.8</div>
+              <div class="hero-stat-label">Avg Content Score</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right reveal reveal-delay-2">
+          <div class="hero-visual">
+  <div class="hero-system-top">
+    <div>
+      <div class="hero-system-label">System snapshot</div>
+      <div class="hero-system-title">AVIAN Revenue OS</div>
+    </div>
+    <div class="hero-system-status">
+      <span class="hero-live-dot"></span>
+      Production
+    </div>
+  </div>
+
+  <div class="hero-system-grid">
+    <div class="hero-system-panel hero-system-panel-wide">
+      <div class="hero-panel-label">Pipeline intelligence</div>
+      <div class="hero-panel-metric">88</div>
+      <div class="hero-panel-meta">Top ICP score this cycle · 7 hot opportunities surfaced</div>
+    </div>
+
+    <div class="hero-system-panel">
+      <div class="hero-panel-label">Content quality</div>
+      <div class="hero-panel-metric">7.8</div>
+      <div class="hero-panel-meta">Average quality score across approved assets</div>
+    </div>
+
+    <div class="hero-system-panel">
+      <div class="hero-panel-label">Re-engagement</div>
+      <div class="hero-panel-metric">2</div>
+      <div class="hero-panel-meta">Immediate follow-up actions triggered today</div>
+    </div>
+
+    <div class="hero-system-panel hero-system-panel-wide muted">
+      <div class="hero-panel-label">Operational note</div>
+      <div class="hero-panel-note">Three linked automation systems connected to CRM workflow, content generation, and priority-based follow-up.</div>
+    </div>
+  </div>
+
+  <div class="hero-visual-footer">
+    <span class="hero-visual-ts">Last sync · Today 08:14 EST</span>
+    <span class="hero-visual-env">production</span>
+  </div>
+</div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- AUTOMATIONS INTRO                                   -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="automations" class="section-pad">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">AI Automations · AVIAN</span>
+          <div class="accent-line"></div>
+          <h2 class="section-title">Three operating systems for modern industrial growth.</h2>
+          <p class="section-desc">Each system solves a specific operational bottleneck inside AVIAN’s commercial motion: identifying the right accounts, producing stronger content faster, and ensuring high-value contacts never stall inside the pipeline.</p>
+        </div>
+
+        <div class="auto-intro-grid">
+
+          <div class="auto-intro-card reveal reveal-delay-1" data-num="01">
+            <div class="aic-top">
+              <div class="aic-icon amber">
+                <i data-lucide="crosshair"></i>
+              </div>
+              <span class="aic-num">01</span>
+            </div>
+            <h3 class="aic-title">Lead Pipeline</h3>
+            <p class="aic-desc">Continuously scores target accounts against AVIAN's ideal customer profile, tiers them by fit, and generates outreach-ready copy for every hot opportunity — automatically.</p>
+            <div class="aic-tags">
+              <span class="aic-tag">ICP Scoring</span>
+              <span class="aic-tag">Account Research</span>
+              <span class="aic-tag">Outreach Copy</span>
+            </div>
+            <div class="aic-stat-row">
+              <div class="aic-stat">
+                <div class="aic-stat-val">15</div>
+                <div class="aic-stat-label">Accounts scored</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">7</div>
+                <div class="aic-stat-label">Hot leads</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">88</div>
+                <div class="aic-stat-label">Top score</div>
+              </div>
+            </div>
+            <a href="#auto-01" class="aic-link">
+              See how it was built
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="auto-intro-card reveal reveal-delay-2" data-num="02">
+            <div class="aic-top">
+              <div class="aic-icon green">
+                <i data-lucide="file-text"></i>
+              </div>
+              <span class="aic-num">02</span>
+            </div>
+            <h3 class="aic-title">Content Engine</h3>
+            <p class="aic-desc">Generates and quality-grades sales and marketing content assets — LinkedIn posts, cold emails, blog introductions — scored against clarity, brand voice, specificity, and CTA strength.</p>
+            <div class="aic-tags">
+              <span class="aic-tag">AI Generation</span>
+              <span class="aic-tag">Quality Grading</span>
+              <span class="aic-tag">Content Library</span>
+            </div>
+            <div class="aic-stat-row">
+              <div class="aic-stat">
+                <div class="aic-stat-val">3</div>
+                <div class="aic-stat-label">Assets approved</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">7.8</div>
+                <div class="aic-stat-label">Avg quality</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">8.0</div>
+                <div class="aic-stat-label">Top score</div>
+              </div>
+            </div>
+            <a href="#auto-02" class="aic-link">
+              See how it was built
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="auto-intro-card reveal reveal-delay-3" data-num="03">
+            <div class="aic-top">
+              <div class="aic-icon blue">
+                <i data-lucide="refresh-cw"></i>
+              </div>
+              <span class="aic-num">03</span>
+            </div>
+            <h3 class="aic-title">Re-Engagement</h3>
+            <p class="aic-desc">Monitors dormant prospect behavior, flags contacts based on inactivity timing and original fit score, and prioritizes follow-up sequences by urgency — so no warm opportunity goes cold.</p>
+            <div class="aic-tags">
+              <span class="aic-tag">Behavioral Signals</span>
+              <span class="aic-tag">Priority Scoring</span>
+              <span class="aic-tag">Follow-up Queues</span>
+            </div>
+            <div class="aic-stat-row">
+              <div class="aic-stat">
+                <div class="aic-stat-val">6</div>
+                <div class="aic-stat-label">Contacts flagged</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">2</div>
+                <div class="aic-stat-label">Immediate</div>
+              </div>
+              <div class="aic-stat">
+                <div class="aic-stat-val">3</div>
+                <div class="aic-stat-label">This week</div>
+              </div>
+            </div>
+            <a href="#auto-03" class="aic-link">
+              See how it was built
+              <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <div class="auto-tech-bar reveal">
+          <div class="atb-label">Built with</div>
+          <div class="atb-items">
+  <span class="atb-item">n8n</span>
+  <span class="atb-dot"></span>
+  <span class="atb-item">OpenAI GPT-4o</span>
+  <span class="atb-dot"></span>
+  <span class="atb-item">Google Sheets</span>
+  <span class="atb-dot"></span>
+  <span class="atb-item">SerpAPI</span>
+  <span class="atb-dot"></span>
+  <span class="atb-item">Gmail API</span>
+  <span class="atb-dot"></span>
+  <span class="atb-item">Jina Reader</span>
+</div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- AUTOMATION 01 — LEAD PIPELINE                       -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="auto-01" class="section-pad">
+      <div class="container">
+
+        <div class="auto-detail-header reveal">
+          <div class="auto-detail-eyebrow">
+            <span class="eyebrow">Automation 01</span>
+            <span class="badge badge-amber">
+              <span class="badge-dot"></span>
+              Active
+            </span>
+          </div>
+          <h2 class="section-title">Lead Pipeline Intelligence</h2>
+          <p class="section-desc">An end-to-end agentic system that identifies, scores, and prepares outreach for AVIAN's highest-fit industrial accounts — fully automated, running on a 24-hour cycle.</p>
+        </div>
+
+        <div class="auto-detail-layout">
+
+          <!-- LEFT: BUILD PROCESS -->
+          <div class="auto-detail-left">
+            <div class="reveal">
+              <div class="process-label">How it was built</div>
+              <div class="process-steps">
+
+                <div class="process-step">
+                  <div class="ps-marker">
+                    <div class="ps-num">1</div>
+                    <div class="ps-line"></div>
+                  </div>
+                  <div class="ps-body">
+                    <div class="ps-title">CRM data ingestion</div>
+<div class="ps-desc">HubSpot CRM contact and account records are ingested by n8n on a scheduled trigger. Each record includes company name, industry vertical, primary contact, and job title.</div>
+<div class="ps-tools">
+  <span class="ps-tool">n8n Schedule Trigger</span>
+  <span class="ps-tool">HubSpot CRM node</span>
+</div>
+                  </div>
+                </div>
+
+                <div class="process-step">
+                  <div class="ps-marker">
+                    <div class="ps-num">2</div>
+                    <div class="ps-line"></div>
+                  </div>
+                  <div class="ps-body">
+                    <div class="ps-title">ICP scoring</div>
+                    <div class="ps-desc">Each account is passed to a GPT-4o agent with a structured ICP scoring prompt. The agent evaluates industry fit, buyer role relevance, and strategic alignment, returning a score from 0–100.</div>
+                    <div class="ps-tools">
+                      <span class="ps-tool">OpenAI GPT-4o</span>
+                      <span class="ps-tool">Structured prompt</span>
+                      <span class="ps-tool">JSON output parsing</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="process-step">
+                  <div class="ps-marker">
+                    <div class="ps-num">3</div>
+                    <div class="ps-line"></div>
+                  </div>
+                  <div class="ps-body">
+                    <div class="ps-title">Tier classification</div>
+                    <div class="ps-desc">Accounts are classified into Hot (≥70), Warm (50–69), or Cold (&lt;50) tiers based on their ICP score. Only hot accounts proceed to outreach generation.</div>
+                    <div class="ps-tools">
+                      <span class="ps-tool">n8n IF node</span>
+                      <span class="ps-tool">Switch logic</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="process-step">
+                  <div class="ps-marker">
+                    <div class="ps-num">4</div>
+                    <div class="ps-line"></div>
+                  </div>
+                  <div class="ps-body">
+                    <div class="ps-title">Outreach generation</div>
+                    <div class="ps-desc">For each hot account, GPT-4o generates a personalised cold email, a LinkedIn connection message, and three call talking points — all role-aware and specific to the contact's title and company context.</div>
+                    <div class="ps-tools">
+                      <span class="ps-tool">OpenAI GPT-4o</span>
+                      <span class="ps-tool">Role-aware prompting</span>
+                      <span class="ps-tool">3 output formats</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="process-step">
+                  <div class="ps-marker">
+                    <div class="ps-num">5</div>
+                    <div class="ps-line"></div>
+                  </div>
+                  <div class="ps-body">
+                    <div class="ps-title">CRM sync and alerting</div>
+<div class="ps-desc">All scored accounts are written back to HubSpot with their tier, score, and outreach copy attached to the contact record. Hot leads trigger an automated Gmail alert so nothing waits in a queue.</div>
+<div class="ps-tools">
+  <span class="ps-tool">HubSpot CRM node</span>
+  <span class="ps-tool">Gmail API</span>
+  <span class="ps-tool">n8n Set node</span>
+</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: OUTPUT PREVIEW -->
+          <div class="auto-detail-right reveal reveal-delay-2">
+
+            <div class="output-card">
+              <div class="output-card-header">
+                <div class="output-card-title">Live Output Sample</div>
+                <div class="output-card-meta">3M Company · ICP Score 88 · Hot</div>
+              </div>
+
+              <div class="output-tabs">
+                <button class="output-tab active" data-tab="email">Email</button>
+                <button class="output-tab" data-tab="linkedin">LinkedIn</button>
+                <button class="output-tab" data-tab="call">Call Points</button>
+              </div>
+
+              <div class="output-body" id="output-body-01">Subject: A faster way to prioritize plant-level opportunities
+
+Hi Emily — noticed 3M continues investing in digital manufacturing and cross-site operational visibility.
+
+We help industrial revenue teams identify which accounts and contacts are most likely to convert, then generate outreach that is already aligned to role, timing, and business context.
+
+Worth sending a short overview of how this could support your commercial and operations teams?</div>
+            </div>
+
+            <div class="pipeline-mini-table">
+              <div class="pmt-header">
+                <div class="pmt-col">Company</div>
+                <div class="pmt-col">Score</div>
+                <div class="pmt-col">Tier</div>
+              </div>
+              <div class="pmt-row">
+                <div class="pmt-col">3M</div>
+                <div class="pmt-col">88</div>
+                <div class="pmt-col"><span class="tier-pip hot">HOT</span></div>
+              </div>
+              <div class="pmt-row">
+                <div class="pmt-col">BASF</div>
+                <div class="pmt-col">85</div>
+                <div class="pmt-col"><span class="tier-pip hot">HOT</span></div>
+              </div>
+              <div class="pmt-row">
+                <div class="pmt-col">Celanese</div>
+                <div class="pmt-col">82</div>
+                <div class="pmt-col"><span class="tier-pip hot">HOT</span></div>
+              </div>
+              <div class="pmt-row">
+                <div class="pmt-col">Honeywell</div>
+                <div class="pmt-col">68</div>
+                <div class="pmt-col"><span class="tier-pip warm">WARM</span></div>
+              </div>
+              <div class="pmt-row">
+                <div class="pmt-col">ConAgra</div>
+                <div class="pmt-col">47</div>
+                <div class="pmt-col"><span class="tier-pip cold">COLD</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="video-section reveal auto-video-block">
+  <div class="video-kicker">Automation 01 • Demo Walkthrough</div>
+  <div class="video-heading">Account Intelligence Engine in operation</div>
+  <p class="video-copy">
+    This walkthrough shows the full scoring flow, live research enrichment, outreach generation, and hot lead alert logic for the account intelligence system.
+  </p>
+  <div class="video-frame">
+    <iframe
+      src="https://www.loom.com/embed/2043e212e9d0481a8ad85ff7c81d9e9f?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- AUTOMATION 02 — CONTENT ENGINE                      -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="auto-02" class="section-pad">
+      <div class="container">
+
+        <div class="auto-detail-header reveal">
+          <div class="auto-detail-eyebrow">
+            <span class="eyebrow">Automation 02</span>
+            <span class="badge badge-green">
+              <span class="badge-dot"></span>
+              Active
+            </span>
+          </div>
+          <h2 class="section-title">Content Engine</h2>
+          <p class="section-desc">An AI generation and quality-grading system that produces sales and marketing content assets, scores them against four dimensions, and saves only approved outputs to a live content library.</p>
+        </div>
+
+        <div class="auto-detail-layout reverse">
+
+          <!-- LEFT: OUTPUT PREVIEW -->
+          <div class="auto-detail-left reveal reveal-delay-1">
+
+            <div class="content-quality-grid">
+              <div class="cq-card">
+                <div class="cq-card-header">
+                  <div class="cq-card-name">LinkedIn Post</div>
+                  <div class="cq-score green">7.5<span>/10</span></div>
+                </div>
+                <div class="cq-preview">Most industrial fires don't start as fires. They start as heat. The facilities that catch thermal anomalies early — in motors, switchgear, conveyors — are the ones that never make the incident report.</div>
+                <div class="cq-dimensions">
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Clarity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Brand Voice</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Specificity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:70%"></div></div>
+                    <div class="cq-dim-val">7</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">CTA Strength</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:70%"></div></div>
+                    <div class="cq-dim-val">7</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cq-card">
+                <div class="cq-card-header">
+                  <div class="cq-card-name">Cold Email</div>
+                  <div class="cq-score amber">7.8<span>/10</span></div>
+                </div>
+                <div class="cq-preview">Hi Sarah — with multi-plant operations running continuous production cycles, a single thermal event in your processing equipment can mean days of unplanned downtime. AVIAN's AI cameras flag heat anomalies before they escalate.</div>
+                <div class="cq-dimensions">
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Clarity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Brand Voice</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:70%"></div></div>
+                    <div class="cq-dim-val">7</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Specificity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">CTA Strength</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cq-card">
+                <div class="cq-card-header">
+                  <div class="cq-card-name">Blog Introduction</div>
+                  <div class="cq-score green">8.0<span>/10</span></div>
+                </div>
+                <div class="cq-preview">Reactive fire safety — sprinklers and smoke alarms — responds after ignition. By then, the damage is already done. AI-powered thermal monitoring gives industrial facilities the ability to act before a fire ever starts.</div>
+                <div class="cq-dimensions">
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Clarity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:90%"></div></div>
+                    <div class="cq-dim-val">9</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Brand Voice</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">Specificity</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:70%"></div></div>
+                    <div class="cq-dim-val">7</div>
+                  </div>
+                  <div class="cq-dim">
+                    <div class="cq-dim-label">CTA Strength</div>
+                    <div class="cq-dim-bar"><div class="cq-dim-fill" style="width:80%"></div></div>
+                    <div class="cq-dim-val">8</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: BUILD PROCESS -->
+          <div class="auto-detail-right reveal reveal-delay-2">
+            <div class="process-label">How it was built</div>
+            <div class="process-steps">
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green);">1</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Content brief input</div>
+                  <div class="ps-desc">A content brief is submitted via a structured form — specifying the asset type (email, LinkedIn post, or blog intro), target audience, and key message focus.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">n8n Form Trigger</span>
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">Structured input</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green);">2</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">AI content generation</div>
+                  <div class="ps-desc">GPT-4o generates a first draft using a brand voice prompt specific to AVIAN — industrial, precise, results-led, and never generic. Output is structured as clean copy only, no padding.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">OpenAI GPT-4o</span>
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">Brand voice prompt</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green);">3</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Quality grading</div>
+                  <div class="ps-desc">A second GPT-4o agent grades the draft across four dimensions: Clarity, Brand Voice, Specificity, and CTA Strength — each scored 1–10. The average becomes the overall quality score.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">GPT-4o grading agent</span>
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">4-dimension scoring</span>
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">JSON output</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green);">4</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Threshold gate</div>
+                  <div class="ps-desc">Assets scoring below 7.0 overall are flagged for revision and not saved to the library. Only assets meeting the quality threshold proceed to storage.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">n8n IF node</span>
+                    <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">Score threshold 7.0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--green-dim);border-color:var(--green-border);color:var(--green);">5</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">CRM content library sync</div>
+<div class="ps-desc">Approved assets are saved to HubSpot with their type, date, score breakdown, and full copy — forming a searchable content library accessible to the whole team.</div>
+<div class="ps-tools">
+  <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">HubSpot CRM node</span>
+  <span class="ps-tool" style="color:var(--green);background:var(--green-dim);border-color:var(--green-border);">Content library</span>
+</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="video-section reveal auto-video-block">
+  <div class="video-kicker">Automation 02 • Demo Walkthrough</div>
+  <div class="video-heading">Content Generation Pipeline in operation</div>
+  <p class="video-copy">
+    This demo shows the brief intake, live brand voice extraction, specialist content generation, quality scoring, and approval workflow from submission to final output.
+  </p>
+  <div class="video-frame">
+    <iframe
+      src="https://www.loom.com/embed/e358c5ad20874a27b7dcb7ef2c52315d?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- AUTOMATION 03 — RE-ENGAGEMENT                       -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="auto-03" class="section-pad">
+      <div class="container">
+
+        <div class="auto-detail-header reveal">
+          <div class="auto-detail-eyebrow">
+            <span class="eyebrow">Automation 03</span>
+            <span class="badge badge-amber">
+              <span class="badge-dot"></span>
+              Active
+            </span>
+          </div>
+          <h2 class="section-title">Re-Engagement System</h2>
+          <p class="section-desc">A behavioral monitoring system that watches dormant prospects, flags contacts by inactivity window and original fit score, and generates priority-ranked follow-up sequences — so the highest-value opportunities never go cold undetected.</p>
+        </div>
+
+        <div class="auto-detail-layout">
+
+          <!-- LEFT: BUILD PROCESS -->
+          <div class="auto-detail-left reveal">
+            <div class="process-label">How it was built</div>
+            <div class="process-steps">
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--blue-dim);border-color:rgba(96,165,250,0.22);color:var(--blue);">1</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Contact monitoring</div>
+<div class="ps-desc">n8n runs a daily check against HubSpot contact records, calculating the number of days since each contact's last touchpoint. The last activity date and original ICP score are both pulled into the workflow.</div>
+<div class="ps-tools">
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">n8n Schedule Trigger</span>
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">HubSpot CRM node</span>
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">Date calculation</span>
+</div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--blue-dim);border-color:rgba(96,165,250,0.22);color:var(--blue);">2</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Dormancy threshold check</div>
+                  <div class="ps-desc">Contacts are filtered against two thresholds — 14 days and 30 days of inactivity. Only contacts exceeding at least one threshold are passed to the next stage.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">n8n IF node</span>
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">14-day / 30-day logic</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--blue-dim);border-color:rgba(96,165,250,0.22);color:var(--blue);">3</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Priority scoring</div>
+                  <div class="ps-desc">A GPT-4o agent evaluates each dormant contact using a composite priority score — weighing original ICP fit, days dormant, and last interaction type — and classifies each as Immediate, This Week, or This Quarter.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">OpenAI GPT-4o</span>
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">Composite scoring</span>
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">3-tier classification</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--blue-dim);border-color:rgba(96,165,250,0.22);color:var(--blue);">4</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Re-engagement copy generation</div>
+                  <div class="ps-desc">For each flagged contact, GPT-4o generates a contextual re-engagement message — referencing the previous interaction, acknowledging the gap naturally, and offering a relevant next step without pressure.</div>
+                  <div class="ps-tools">
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">OpenAI GPT-4o</span>
+                    <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">Context-aware prompting</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="process-step">
+                <div class="ps-marker">
+                  <div class="ps-num" style="background:var(--blue-dim);border-color:rgba(96,165,250,0.22);color:var(--blue);">5</div>
+                  <div class="ps-line"></div>
+                </div>
+                <div class="ps-body">
+                  <div class="ps-title">Priority queue and alerting</div>
+<div class="ps-desc">All flagged contacts are written back to HubSpot ranked by priority tier. Immediate-tier contacts trigger an instant Gmail alert to ensure same-day follow-up action.</div>
+<div class="ps-tools">
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">HubSpot CRM node</span>
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">Gmail API</span>
+  <span class="ps-tool" style="color:var(--blue);background:var(--blue-dim);border-color:rgba(96,165,250,0.22);">Priority ranking</span>
+</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RIGHT: OUTPUT PREVIEW -->
+          <div class="auto-detail-right reveal reveal-delay-2">
+
+            <div class="reengage-contact-stack">
+
+              <div class="rc-card immediate">
+                <div class="rc-card-top">
+                  <div class="rc-contact-info">
+                    <div class="rc-name">Marcus Reid</div>
+                    <div class="rc-company">Celanese · VP Operations</div>
+                  </div>
+                  <div class="rc-badges">
+                    <span class="tier-pip hot">IMMEDIATE</span>
+                  </div>
+                </div>
+                <div class="rc-meta-row">
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Dormant</span>
+                    <span class="rc-meta-val">31 days</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">ICP Score</span>
+                    <span class="rc-meta-val">82</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Last action</span>
+                    <span class="rc-meta-val">Email opened</span>
+                  </div>
+                </div>
+                <div class="rc-message">Marcus — we spoke last month about thermal risk across Celanese's processing sites. Wanted to follow up — we've seen a few chemical facilities in your segment flag early-stage heat anomalies that their existing systems completely missed. Worth a quick look at what we caught?</div>
+              </div>
+
+              <div class="rc-card week">
+                <div class="rc-card-top">
+                  <div class="rc-contact-info">
+                    <div class="rc-name">Priya Nair</div>
+                    <div class="rc-company">Honeywell · EHS Director</div>
+                  </div>
+                  <div class="rc-badges">
+                    <span class="tier-pip warm">THIS WEEK</span>
+                  </div>
+                </div>
+                <div class="rc-meta-row">
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Dormant</span>
+                    <span class="rc-meta-val">18 days</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">ICP Score</span>
+                    <span class="rc-meta-val">68</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Last action</span>
+                    <span class="rc-meta-val">Link clicked</span>
+                  </div>
+                </div>
+                <div class="rc-message">Priya — following up on our conversation about Honeywell's facility safety roadmap. We've had some relevant updates on AI thermal detection in large-scale industrial environments that seem directly relevant. Happy to send a short summary if useful.</div>
+              </div>
+
+              <div class="rc-card quarter">
+                <div class="rc-card-top">
+                  <div class="rc-contact-info">
+                    <div class="rc-name">James Holloway</div>
+                    <div class="rc-company">ConAgra · VP Plant Operations</div>
+                  </div>
+                  <div class="rc-badges">
+                    <span class="tier-pip cold">THIS QUARTER</span>
+                  </div>
+                </div>
+                <div class="rc-meta-row">
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Dormant</span>
+                    <span class="rc-meta-val">14 days</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">ICP Score</span>
+                    <span class="rc-meta-val">47</span>
+                  </div>
+                  <div class="rc-meta-item">
+                    <span class="rc-meta-label">Last action</span>
+                    <span class="rc-meta-val">Meeting booked</span>
+                  </div>
+                </div>
+                <div class="rc-message">James — just a quick note before the quarter wraps. Food processing environments carry real thermal risk in cooking and packaging lines, and we've been working with a few facilities in your segment on early detection. Happy to reconnect when the timing is better.</div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="video-section reveal auto-video-block">
+  <div class="video-kicker">Automation 03 • Demo Walkthrough</div>
+  <div class="video-heading">Re-engagement system in operation</div>
+  <p class="video-copy">
+    This walkthrough shows dormant contact monitoring, priority assignment, contextual follow-up generation, and the queue logic used to surface the highest-value re-engagement opportunities.
+  </p>
+  <div class="video-frame">
+    <iframe
+      src="https://www.loom.com/embed/a29ede31e86c4d12923b0a252431f60b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
+      frameborder="0"
+      webkitallowfullscreen
+      mozallowfullscreen
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- DASHBOARD SECTION                                   -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="dashboard" class="section-pad">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Live Output · AVIAN</span>
+          <div class="accent-line"></div>
+          <h2 class="section-title">Operational visibility across the system.</h2>
+          <p class="section-desc">This dashboard is the real-time output layer of all three automations — account scores, content quality, and re-engagement priority rendered as a single operational view. Every data point here was produced by the systems above.</p>
+        </div>
+
+        <div class="dashboard-frame-wrap reveal reveal-delay-1">
+          <div class="dashboard-frame-header">
+            <div class="dfh-left">
+              <div class="dfh-dots">
+                <span class="dfh-dot red"></span>
+                <span class="dfh-dot yellow"></span>
+                <span class="dfh-dot green"></span>
+              </div>
+              <div class="dfh-title">AVIAN Revenue System Monitor</div>
+            </div>
+            <div class="dfh-right">
+              <span class="badge badge-green">
+                <span class="badge-dot"></span>
+                Live
+              </span>
+              <div class="dfh-env">env: production</div>
+            </div>
+          </div>
+
+          <!-- EMBEDDED DASHBOARD -->
+          <div class="dashboard-embed">
+
+            <!-- MINI NAV -->
+            <div class="db-nav">
+              <button class="db-nav-item active" data-view="overview">Overview</button>
+              <button class="db-nav-item" data-view="pipeline">Pipeline</button>
+              <button class="db-nav-item" data-view="content">Content</button>
+              <button class="db-nav-item" data-view="reengage">Re-Engage</button>
+            </div>
+
+            <!-- VIEWS -->
+            <div class="db-views">
+
+              <!-- OVERVIEW -->
+              <div class="db-view active" id="db-overview">
+                <div class="db-kpi-row">
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Total Accounts</div>
+                    <div class="db-kpi-val">15</div>
+                    <div class="db-kpi-sub">Scored this cycle</div>
+                  </div>
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Hot Leads</div>
+                    <div class="db-kpi-val amber">7</div>
+                    <div class="db-kpi-sub">ICP score ≥70</div>
+                  </div>
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Avg ICP Score</div>
+                    <div class="db-kpi-val">67.4</div>
+                    <div class="db-kpi-sub">Across all accounts</div>
+                  </div>
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Content Assets</div>
+                    <div class="db-kpi-val green">3</div>
+                    <div class="db-kpi-sub">Approved this week</div>
+                  </div>
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Avg Quality</div>
+                    <div class="db-kpi-val">7.8</div>
+                    <div class="db-kpi-sub">Content score avg</div>
+                  </div>
+                  <div class="db-kpi">
+                    <div class="db-kpi-label">Re-Engage Queue</div>
+                    <div class="db-kpi-val amber">6</div>
+                    <div class="db-kpi-sub">2 immediate action</div>
+                  </div>
+                </div>
+
+                <div class="db-chart-row">
+                  <div class="db-chart-card wide">
+                    <div class="db-chart-title">ICP Score Distribution</div>
+                    <div class="db-chart-wrap">
+                      <canvas id="db-icp-chart"></canvas>
+                    </div>
+                  </div>
+                  <div class="db-chart-card">
+                    <div class="db-chart-title">Tier Breakdown</div>
+                    <div class="db-chart-wrap sm">
+                      <canvas id="db-tier-chart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PIPELINE -->
+              <div class="db-view" id="db-pipeline">
+                <div class="db-table-wrap">
+                  <div class="db-table-header">
+                    <div>Company</div>
+                    <div>Contact</div>
+                    <div>ICP Score</div>
+                    <div>Tier</div>
+                    <div>Outreach</div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">3M</div>
+                    <div class="db-cell">Emily Park · Dir. Ops</div>
+                    <div class="db-cell mono">88</div>
+                    <div class="db-cell"><span class="tier-pip hot">HOT</span></div>
+                    <div class="db-cell"><span class="db-ready">Ready</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">BASF</div>
+                    <div class="db-cell">Thomas Klein · VP Sales</div>
+                    <div class="db-cell mono">85</div>
+                    <div class="db-cell"><span class="tier-pip hot">HOT</span></div>
+                    <div class="db-cell"><span class="db-ready">Ready</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Celanese</div>
+                    <div class="db-cell">Marcus Reid · VP Ops</div>
+                    <div class="db-cell mono">82</div>
+                    <div class="db-cell"><span class="tier-pip hot">HOT</span></div>
+                    <div class="db-cell"><span class="db-ready">Ready</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Dow Chemical</div>
+                    <div class="db-cell">Rachel Torres · CTO</div>
+                    <div class="db-cell mono">79</div>
+                    <div class="db-cell"><span class="tier-pip hot">HOT</span></div>
+                    <div class="db-cell"><span class="db-ready">Ready</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Honeywell</div>
+                    <div class="db-cell">Priya Nair · EHS Director</div>
+                    <div class="db-cell mono">68</div>
+                    <div class="db-cell"><span class="tier-pip warm">WARM</span></div>
+                    <div class="db-cell"><span class="db-pending">Pending</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Siemens</div>
+                    <div class="db-cell">Anna Weber · SVP Ops</div>
+                    <div class="db-cell mono">65</div>
+                    <div class="db-cell"><span class="tier-pip warm">WARM</span></div>
+                    <div class="db-cell"><span class="db-pending">Pending</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">ConAgra</div>
+                    <div class="db-cell">James Holloway · VP Plant Ops</div>
+                    <div class="db-cell mono">47</div>
+                    <div class="db-cell"><span class="tier-pip cold">COLD</span></div>
+                    <div class="db-cell"><span class="db-skip">Skip</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CONTENT -->
+              <div class="db-view" id="db-content">
+                <div class="db-content-list">
+                  <div class="db-content-row">
+                    <div class="db-content-left">
+                      <div class="db-content-type">LinkedIn Post</div>
+                      <div class="db-content-preview">Most industrial fires don't start as fires. They start as heat — in motors, switchgear, and conveyors that go unmonitored...</div>
+                    </div>
+                    <div class="db-content-right">
+                      <div class="db-content-score green">7.5</div>
+                      <span class="badge badge-green">Approved</span>
+                    </div>
+                  </div>
+                  <div class="db-content-row">
+                    <div class="db-content-left">
+                      <div class="db-content-type">Cold Email</div>
+                      <div class="db-content-preview">Hi Sarah — with multi-plant operations running continuous production cycles, a single thermal event can mean days of unplanned downtime...</div>
+                    </div>
+                    <div class="db-content-right">
+                      <div class="db-content-score amber">7.8</div>
+                      <span class="badge badge-green">Approved</span>
+                    </div>
+                  </div>
+                  <div class="db-content-row">
+                    <div class="db-content-left">
+                      <div class="db-content-type">Blog Introduction</div>
+                      <div class="db-content-preview">Reactive fire safety responds after ignition. By then, the damage is done. AI thermal monitoring lets facilities act before a fire ever starts...</div>
+                    </div>
+                    <div class="db-content-right">
+                      <div class="db-content-score green">8.0</div>
+                      <span class="badge badge-green">Approved</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RE-ENGAGE -->
+              <div class="db-view" id="db-reengage">
+                <div class="db-table-wrap">
+                  <div class="db-table-header">
+                    <div>Contact</div>
+                    <div>Company</div>
+                    <div>Dormant</div>
+                    <div>ICP</div>
+                    <div>Priority</div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Marcus Reid</div>
+                    <div class="db-cell">Celanese</div>
+                    <div class="db-cell mono">31d</div>
+                    <div class="db-cell mono">82</div>
+                    <div class="db-cell"><span class="tier-pip hot">IMMEDIATE</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Emily Park</div>
+                    <div class="db-cell">3M</div>
+                    <div class="db-cell mono">28d</div>
+                    <div class="db-cell mono">88</div>
+                    <div class="db-cell"><span class="tier-pip hot">IMMEDIATE</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Priya Nair</div>
+                    <div class="db-cell">Honeywell</div>
+                    <div class="db-cell mono">18d</div>
+                    <div class="db-cell mono">68</div>
+                    <div class="db-cell"><span class="tier-pip warm">THIS WEEK</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Anna Weber</div>
+                    <div class="db-cell">Siemens</div>
+                    <div class="db-cell mono">16d</div>
+                    <div class="db-cell mono">65</div>
+                    <div class="db-cell"><span class="tier-pip warm">THIS WEEK</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">Thomas Klein</div>
+                    <div class="db-cell">BASF</div>
+                    <div class="db-cell mono">15d</div>
+                    <div class="db-cell mono">85</div>
+                    <div class="db-cell"><span class="tier-pip warm">THIS WEEK</span></div>
+                  </div>
+                  <div class="db-table-row">
+                    <div class="db-cell-primary">James Holloway</div>
+                    <div class="db-cell">ConAgra</div>
+                    <div class="db-cell mono">14d</div>
+                    <div class="db-cell mono">47</div>
+                    <div class="db-cell"><span class="tier-pip cold">THIS QUARTER</span></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- RESULTS & IMPACT                                    -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="results" class="section-pad">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">Results · Since Deployment</span>
+          <div class="accent-line"></div>
+          <h2 class="section-title">What the automations<br>actually produce.</h2>
+          <p class="section-desc">These are the measurable outputs from all three systems since going live — time recovered, leads identified, content produced, and opportunities re-engaged.</p>
+        </div>
+
+        <div class="impact-grid reveal reveal-delay-1">
+          <div class="impact-num-card">
+            <div class="inc-value" data-count="15-20">0</div>
+            <div class="inc-unit">hours</div>
+            <div class="inc-label">Automated weekly</div>
+            <div class="inc-desc">Manual research, scoring, and copy writing removed from the workflow entirely.</div>
+          </div>
+          <div class="impact-num-card">
+            <div class="inc-value" data-count="15">0</div>
+            <div class="inc-unit">accounts</div>
+            <div class="inc-label">Scored per cycle</div>
+            <div class="inc-desc">Each account evaluated against 6 ICP dimensions in under 40 seconds per record.</div>
+          </div>
+          <div class="impact-num-card">
+            <div class="inc-value" data-count="7">0</div>
+            <div class="inc-unit">hot leads</div>
+            <div class="inc-label">Identified this cycle</div>
+            <div class="inc-desc">All with outreach-ready email, LinkedIn message, and call talking points generated.</div>
+          </div>
+          <div class="impact-num-card">
+            <div class="inc-value" data-count="3">0</div>
+            <div class="inc-unit">assets</div>
+            <div class="inc-label">Content approved</div>
+            <div class="inc-desc">Averaging 7.8 out of 10 across all four quality dimensions this week.</div>
+          </div>
+        </div>
+
+        <div class="results-detail-grid">
+          <div class="rdg-card reveal reveal-delay-1">
+            <div class="rdg-icon amber"><i data-lucide="clock"></i></div>
+            <div class="rdg-body">
+              <div class="rdg-title">Time recovered</div>
+              <div class="rdg-desc">Before these automations, manually researching, scoring, and writing outreach for 15 accounts took approximately 3–4 hours per cycle. That work now runs in under 4 minutes, end to end.</div>
+              <div class="rdg-metric">
+                <div class="rdg-metric-before">
+                  <div class="rdg-metric-label">Before</div>
+                  <div class="rdg-metric-val red">~4 hours</div>
+                </div>
+                <div class="rdg-metric-arrow"><i data-lucide="arrow-right"></i></div>
+                <div class="rdg-metric-after">
+                  <div class="rdg-metric-label">Now</div>
+                  <div class="rdg-metric-val green">&lt;4 minutes</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rdg-card reveal reveal-delay-2">
+            <div class="rdg-icon green"><i data-lucide="trending-up"></i></div>
+            <div class="rdg-body">
+              <div class="rdg-title">Lead quality consistency</div>
+              <div class="rdg-desc">ICP scoring is now applied consistently across every account using the same 6-dimension rubric, removing subjective judgment from prioritization. Every hot lead meets the same objective threshold.</div>
+              <div class="rdg-metric">
+                <div class="rdg-metric-before">
+                  <div class="rdg-metric-label">Subjective gut-feel</div>
+                  <div class="rdg-metric-val red">Variable</div>
+                </div>
+                <div class="rdg-metric-arrow"><i data-lucide="arrow-right"></i></div>
+                <div class="rdg-metric-after">
+                  <div class="rdg-metric-label">Objective scoring</div>
+                  <div class="rdg-metric-val green">Consistent</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rdg-card reveal reveal-delay-3">
+            <div class="rdg-icon blue"><i data-lucide="shield-check"></i></div>
+            <div class="rdg-body">
+              <div class="rdg-title">Content quality gate</div>
+              <div class="rdg-desc">The quality threshold at 7.0 means only high-fit content reaches the library. No generic, off-brand, or weak copy ever makes it through — the gate is automated and non-negotiable.</div>
+              <div class="rdg-metric">
+                <div class="rdg-metric-before">
+                  <div class="rdg-metric-label">Min threshold</div>
+                  <div class="rdg-metric-val amber">7.0 / 10</div>
+                </div>
+                <div class="rdg-metric-arrow"><i data-lucide="arrow-right"></i></div>
+                <div class="rdg-metric-after">
+                  <div class="rdg-metric-label">Current avg</div>
+                  <div class="rdg-metric-val green">7.8 / 10</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rdg-card reveal reveal-delay-4">
+            <div class="rdg-icon amber"><i data-lucide="refresh-cw"></i></div>
+            <div class="rdg-body">
+              <div class="rdg-title">Zero cold opportunities missed</div>
+              <div class="rdg-desc">The re-engagement system flags dormant contacts daily, meaning no high-fit prospect can go cold without triggering an alert. Immediate-tier contacts receive a same-day notification.</div>
+              <div class="rdg-metric">
+                <div class="rdg-metric-before">
+                  <div class="rdg-metric-label">Flagged contacts</div>
+                  <div class="rdg-metric-val amber">6 total</div>
+                </div>
+                <div class="rdg-metric-arrow"><i data-lucide="arrow-right"></i></div>
+                <div class="rdg-metric-after">
+                  <div class="rdg-metric-label">Immediate action</div>
+                  <div class="rdg-metric-val green">2 today</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- AI AGENT                                            -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="agent" class="section-pad">
+      <div class="container">
+
+        <div class="section-header reveal">
+          <span class="eyebrow">AI Agent · Ask Anything</span>
+          <div class="accent-line"></div>
+          <h2 class="section-title">Ask the automation architect.</h2>
+          <p class="section-desc">This agent knows every detail of how the three AVIAN automations were built — the tools, the logic, the prompts, and the outputs. Ask it anything about the systems documented on this page.</p>
+        </div>
+
+        <div class="agent-layout reveal reveal-delay-1">
+
+          <div class="agent-chat-wrap">
+            <div class="agent-chat-header">
+              <div class="agent-chat-identity">
+                <div class="agent-avatar">
+                  <i data-lucide="cpu"></i>
+                </div>
+                <div class="agent-meta">
+                  <div class="agent-name">AVIAN Automation Agent</div>
+                  <div class="agent-status">
+                    <span class="badge-dot" style="width:6px;height:6px;background:var(--green);display:inline-block;border-radius:50%;animation:pulse 2.4s ease-in-out infinite;"></span>
+                    Ready to answer
+                  </div>
+                </div>
+              </div>
+              <button class="agent-clear" id="agent-clear" title="Clear conversation">
+                <i data-lucide="rotate-ccw"></i>
+              </button>
+            </div>
+
+            <div class="agent-messages" id="agent-messages">
+              <div class="agent-msg agent">
+                <div class="agent-msg-bubble">
+                  Hi — I'm the AVIAN Automation Agent. I know everything about the three AI systems Hans built for AVIAN: the Lead Pipeline, Content Engine, and Re-Engagement system. Ask me how they were built, what tools were used, how the scoring works, or anything else about the automations.
+                </div>
+              </div>
+            </div>
+
+            <div class="agent-input-row">
+              <input
+                type="text"
+                id="agent-input"
+                class="agent-input"
+                placeholder="Ask about the automations..."
+                autocomplete="off"
+              />
+              <button class="agent-send" id="agent-send">
+                <i data-lucide="send"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="agent-suggestions">
+            <div class="agent-suggestions-label">Suggested questions</div>
+            <div class="agent-suggestion-list">
+              <button class="agent-suggestion" data-q="How does the ICP scoring work?">How does the ICP scoring work?</button>
+              <button class="agent-suggestion" data-q="What tools were used to build the Lead Pipeline?">What tools were used to build the Lead Pipeline?</button>
+              <button class="agent-suggestion" data-q="How does the content quality gate work?">How does the content quality gate work?</button>
+              <button class="agent-suggestion" data-q="How are re-engagement priorities calculated?">How are re-engagement priorities calculated?</button>
+              <button class="agent-suggestion" data-q="What happens when a lead scores below 50?">What happens when a lead scores below 50?</button>
+              <button class="agent-suggestion" data-q="How is the outreach copy generated?">How is the outreach copy generated?</button>
+              <button class="agent-suggestion" data-q="What are the four content quality dimensions?">What are the four content quality dimensions?</button>
+              <button class="agent-suggestion" data-q="How does the re-engagement automation detect dormant contacts?">How does the re-engagement automation detect dormant contacts?</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+        <!-- ═══════════════════════════════════════════════════ -->
+    <!-- FOOTER / CLOSE                                      -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <div class="footer-mark">
+            <div class="footer-logo-text">AVIAN</div>
+            <div>
+              <div class="footer-title">AVIAN Agentic Systems Portfolio</div>
+              <div class="footer-sub">Built by Hans Stewart · Industrial AI GTM Automation</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-right">
+          <a href="#hero" class="footer-link">Top</a>
+          <a href="#automations" class="footer-link">Automations</a>
+          <a href="#dashboard" class="footer-link">Dashboard</a>
+          <a href="#results" class="footer-link">Results</a>
+          <a href="#agent" class="footer-link">AI Agent</a>
+        </div>
+      </div>
+    </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    // Output tab switching — Automation 01
+    const outputTabs = document.querySelectorAll('.output-tab');
+    const outputBody = document.getElementById('output-body-01');
+
+    const outputContent = {
+  email: `Subject: Preventing thermal runaway at 3M's manufacturing sites
+
+Hi Emily — with 3M operating high-volume industrial facilities, undetected heat anomalies in electrical systems and processing equipment are a real and recurring risk.
+
+AVIAN's AI thermal cameras monitor your facilities 24/7 — flagging abnormal heat signatures before they escalate into fires, equipment failures, or unplanned downtime.
+
+Worth a quick overview of how this works inside a facility like yours?`,
+
+  linkedin: `Emily — your work across 3M's manufacturing operations caught my attention.
+
+We've been helping Plant Managers and EHS teams detect thermal risk before it becomes a fire incident — continuous AI monitoring, no manual inspection required.
+
+Open to a quick connection?`,
+
+  call: `— Reference 3M's scale of industrial operations and multi-site facility risk exposure
+— Mention that most industrial fires start as detectable heat anomalies hours before ignition
+— Position AVIAN as 24/7 AI thermal monitoring that prevents fires before they start
+— Note OSHA compliance and insurance premium reduction as additional outcomes
+— Ask about their current approach to thermal risk monitoring and fire prevention`
+};
+
+    outputTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        outputTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        outputBody.textContent = outputContent[tab.dataset.tab];
+      });
+    });
+
+        // Dashboard tab switching
+    const dbNavItems = document.querySelectorAll('.db-nav-item');
+    const dbViews = document.querySelectorAll('.db-view');
+
+    dbNavItems.forEach(btn => {
+      btn.addEventListener('click', () => {
+        dbNavItems.forEach(b => b.classList.remove('active'));
+        dbViews.forEach(v => v.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('db-' + btn.dataset.view).classList.add('active');
+      });
+    });
+
+    // Dashboard charts
+    const icpData = [88, 85, 82, 79, 74, 72, 70, 68, 65, 61, 58, 54, 47, 43, 38];
+    const icpLabels = ['3M','BASF','Celanese','Dow','Olin','Albemarle','Eastman','Honeywell','Siemens','DuPont','Covestro','Arkema','ConAgra','Cabot','Ashland'];
+
+    new Chart(document.getElementById('db-icp-chart'), {
+      type: 'bar',
+      data: {
+        labels: icpLabels,
+        datasets: [{
+          data: icpData,
+          backgroundColor: icpData.map(v =>
+            v >= 70 ? 'rgba(232,98,26,0.75)' :
+            v >= 50 ? 'rgba(96,165,250,0.6)' :
+                      'rgba(255,255,255,0.15)'
+          ),
+          borderColor: icpData.map(v =>
+            v >= 70 ? 'rgba(232,98,26,0.9)' :
+            v >= 50 ? 'rgba(96,165,250,0.8)' :
+                      'rgba(255,255,255,0.25)'
+          ),
+          borderWidth: 1,
+          borderRadius: 3,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(10,10,10,0.94)',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            titleColor: '#fff',
+            bodyColor: '#d0d0d0',
+            displayColors: false,
+            callbacks: {
+              label: ctx => ` ICP Score: ${ctx.raw}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.03)' },
+            ticks: { color: '#5a5a5a', font: { size: 9, family: "'JetBrains Mono'" }, maxRotation: 45 }
+          },
+          y: {
+            min: 0,
+            max: 100,
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: '#5a5a5a', font: { size: 9, family: "'JetBrains Mono'" }, stepSize: 25 }
+          }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('db-tier-chart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Hot', 'Warm', 'Cold'],
+        datasets: [{
+          data: [7, 5, 3],
+          backgroundColor: [
+            'rgba(232,98,26,0.8)',
+            'rgba(96,165,250,0.7)',
+            'rgba(255,255,255,0.12)'
+          ],
+          borderColor: [
+            'rgba(232,98,26,1)',
+            'rgba(96,165,250,0.9)',
+            'rgba(255,255,255,0.2)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '72%',
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#9a9a9a',
+              font: { size: 10 },
+              boxWidth: 10,
+              padding: 14,
+              usePointStyle: true,
+              pointStyle: 'circle'
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(10,10,10,0.94)',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            titleColor: '#fff',
+            bodyColor: '#d0d0d0',
+            displayColors: false,
+            callbacks: {
+              label: ctx => ` ${ctx.label}: ${ctx.raw} accounts`
+            }
+          }
+        }
+      }
+    });
+
+        // Animated count-up for impact numbers
+    const countEls = document.querySelectorAll('.inc-value[data-count]');
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        const duration = 1200;
+        const start = performance.now();
+
+        const tick = (now) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        };
+
+        requestAnimationFrame(tick);
+        countObserver.unobserve(el);
+      });
+    }, { threshold: 0.3 });
+
+    countEls.forEach(el => countObserver.observe(el));
+        // ── AI AGENT KNOWLEDGE BASE ─────────────────────────────
+    const agentKB = {
+      "icp scoring": `The ICP scoring system works across 6 dimensions: industry vertical fit, buyer role relevance, company size alignment, strategic initiative match, geographic fit, and technology adoption signals. Each dimension is evaluated by GPT-4o and contributes to a final score from 0–100. Accounts scoring 70 or above are classified as Hot, 50–69 as Warm, and below 50 as Cold.`,
+
+      "lead pipeline tools": `The Lead Pipeline was built using: n8n (workflow orchestration and scheduling), Google Sheets (source data input), OpenAI GPT-4o (ICP scoring and outreach generation), Airtable (output storage), and Gmail API (hot lead alerting). The entire workflow runs on a 24-hour scheduled trigger.`,
+
+      "content quality gate": `The quality gate is an automated threshold check built into the Content Engine workflow. After GPT-4o generates a content asset, a second GPT-4o grading agent scores it across four dimensions: Clarity, Brand Voice, Specificity, and CTA Strength — each from 1–10. The average of those four scores becomes the overall quality score. Any asset scoring below 7.0 is flagged for revision and never written to the Airtable content library.`,
+
+      "re-engagement priorities": `Re-engagement priorities are calculated using a composite score that weighs three factors: the contact's original ICP fit score, the number of days since their last touchpoint, and the type of their last interaction (e.g. meeting booked ranks higher than email opened). GPT-4o evaluates these factors together and classifies each contact as Immediate (action today), This Week, or This Quarter.`,
+
+      "lead score below 50": `Accounts scoring below 50 are classified as Cold and do not proceed to outreach generation. They are still written to Airtable with their score and tier for tracking purposes, but no email, LinkedIn message, or call points are generated for them. They may be re-evaluated in a future cycle if circumstances change.`,
+
+      "outreach copy": `For every Hot account (ICP score ≥70), GPT-4o generates three outreach assets: a personalised cold email with a specific subject line, a LinkedIn connection message, and three call talking points. All three are written with awareness of the contact's job title and company context, using a role-aware prompt that avoids generic language.`,
+
+      "content quality dimensions": `The four content quality dimensions are: Clarity (is the message easy to understand and free of ambiguity?), Brand Voice (does it sound like AVIAN — industrial, precise, results-led?), Specificity (does it reference real context rather than generic claims?), and CTA Strength (does it include a clear, low-friction next step?). Each is scored 1–10 by the grading agent.`,
+
+      "dormant contacts": `The re-engagement automation detects dormant contacts by running a daily n8n scheduled workflow that reads all contacts from Airtable and calculates the number of days since each contact's last recorded touchpoint. Contacts exceeding 14 days of inactivity are flagged for priority scoring. Those exceeding 30 days are automatically escalated regardless of other factors.`,
+
+      "default": `That's a great question about the AVIAN automations. The three systems I can speak to in detail are: the Lead Pipeline (ICP scoring and outreach generation), the Content Engine (AI content creation and quality grading), and the Re-Engagement system (dormancy monitoring and priority follow-up). Try asking something specific about how one of these was built, what tools were used, or how the scoring logic works.`
+    };
+
+    function getAgentResponse(question) {
+      const q = question.toLowerCase();
+      if (q.includes('icp') || q.includes('scoring') || q.includes('score') && q.includes('work')) return agentKB['icp scoring'];
+      if (q.includes('tool') || q.includes('built') || q.includes('pipeline')) return agentKB['lead pipeline tools'];
+      if (q.includes('quality gate') || q.includes('threshold') || q.includes('gate')) return agentKB['content quality gate'];
+      if (q.includes('priority') || q.includes('priorit') || q.includes('calculated')) return agentKB['re-engagement priorities'];
+      if (q.includes('below 50') || q.includes('cold lead') || q.includes('score below')) return agentKB['lead score below 50'];
+      if (q.includes('outreach') || q.includes('copy') || q.includes('generated') || q.includes('email')) return agentKB['outreach copy'];
+      if (q.includes('dimension') || q.includes('four') || q.includes('clarity') || q.includes('brand voice')) return agentKB['content quality dimensions'];
+      if (q.includes('dormant') || q.includes('detect') || q.includes('inactive') || q.includes('re-engage')) return agentKB['dormant contacts'];
+      return agentKB['default'];
+    }
+
+    function appendMessage(role, text) {
+      const msgs = document.getElementById('agent-messages');
+      const div = document.createElement('div');
+      div.className = `agent-msg ${role}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'agent-msg-bubble';
+      bubble.textContent = text;
+      div.appendChild(bubble);
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+      return div;
+    }
+
+    function showTyping() {
+      const msgs = document.getElementById('agent-messages');
+      const div = document.createElement('div');
+      div.className = 'agent-msg agent agent-typing';
+      div.innerHTML = `<div class="agent-msg-bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+      return div;
+    }
+
+    function sendMessage(text) {
+      if (!text.trim()) return;
+      const input = document.getElementById('agent-input');
+      input.value = '';
+      appendMessage('user', text);
+      const typing = showTyping();
+      setTimeout(() => {
+        typing.remove();
+        appendMessage('agent', getAgentResponse(text));
+      }, 900 + Math.random() * 400);
+    }
+
+    document.getElementById('agent-send').addEventListener('click', () => {
+      sendMessage(document.getElementById('agent-input').value);
+    });
+
+    document.getElementById('agent-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendMessage(e.target.value);
+    });
+
+    document.getElementById('agent-clear').addEventListener('click', () => {
+      const msgs = document.getElementById('agent-messages');
+      msgs.innerHTML = '';
+      appendMessage('agent', `Conversation cleared. Ask me anything about the three AVIAN automations — the Lead Pipeline, Content Engine, or Re-Engagement system.`);
+    });
+
+    document.querySelectorAll('.agent-suggestion').forEach(btn => {
+      btn.addEventListener('click', () => sendMessage(btn.dataset.q));
+    });
+    lucide.createIcons();
+  </script>
+</body>
+</html>
